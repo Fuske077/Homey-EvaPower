@@ -1,0 +1,9 @@
+[
+  {
+    "id": "sysSn",
+    "type": "text",
+    "label": { "en": "sysSn" },
+    "value": "ALB0020.....",
+    "hint": { "en": "The sysSn of your device" }
+  }
+]

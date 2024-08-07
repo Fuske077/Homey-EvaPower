@@ -1,0 +1,17 @@
+ {
+      "type": "number",
+      "title": {
+        "en": "Grid power",
+        "nl": "Electriciteitsnet vermogen"
+      },
+      "units": {
+        "en": "W",
+        "nl": "W"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 2,
+	  "insights": true
+}
+
+ 

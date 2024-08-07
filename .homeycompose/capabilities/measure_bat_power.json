@@ -1,0 +1,21 @@
+ {
+      "type": "number",
+      "title": {
+        "en": "Battery power",
+        "nl": "Batterij vermogen"
+      },
+      "units": {
+        "en": "W",
+        "nl": "W"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 2,
+	  "insights": true,
+	  "images": {
+		"small": "/drivers/inverter/assets/images/battery100x100.png",
+		"large": "/drivers/inverter/assets/images/battery256x256.png"},
+	"icon": "/drivers/inverter/assets/images/battery100x100.png"
+}
+
+ 
