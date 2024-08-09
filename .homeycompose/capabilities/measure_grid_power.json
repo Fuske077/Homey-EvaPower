@@ -1,6 +1,6 @@
  {
       "type": "number",
-      "title": {
+      "title": { 
         "en": "Grid power",
         "nl": "Electriciteitsnet vermogen"
       },

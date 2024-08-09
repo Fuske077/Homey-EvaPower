@@ -1,7 +1,7 @@
 'use strict';
 const Homey = require('homey');
 const axios = require('axios');
-const utils = require('./utils');
+const utils = require('./utils'); 
 
 class InverterDevice extends Homey.Device {
 	

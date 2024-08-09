@@ -1,5 +1,19 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml version="1.0"?>
+<svg width="960" height="960" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" transform="translate(0.5,0.5)" version="1.1">
+ <g class="layer">
+  <title>Layer 1</title>
+  <rect fill="rgb(255,255,255)" fill-opacity="0" height="705" id="background" width="436" x="0" y="0"/>
+  <g class="Layer" id="svg_1">
+   <rect fill="rgb(252,252,252)" height="769.39" id="svg_2" rx="5" stroke="rgb(0,0,0)" stroke-width="6" width="447" x="271" y="148.61"/>
+   <rect fill="rgb(252,252,252)" height="84.61" id="svg_3" rx="5" stroke="rgb(0,0,0)" stroke-width="6" width="292.58" x="348.21" y="64"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_4" rx="5" stroke="rgb(252,252,252)" width="406.36" x="292.67" y="802.99"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_5" rx="5" stroke="rgb(252,252,252)" width="406.36" x="291.32" y="703.84"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_6" rx="5" stroke="rgb(252,252,252)" width="406.36" x="291.32" y="598.08"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_7" rx="5" stroke="rgb(252,252,252)" width="406.36" x="292.67" y="489.68"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_8" rx="5" stroke="rgb(252,252,252)" width="406.36" x="292.67" y="385.24"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_9" rx="5" stroke="rgb(252,252,252)" width="406.36" x="291.32" y="283.45"/>
+   <rect fill="rgb(0,0,0)" height="84.61" id="svg_10" rx="5" stroke="rgb(252,252,252)" width="406.36" x="292.67" y="182.98"/>
+  </g>
+ </g>
 
-<svg height="705" transform="translate(0.5,0.5)" version="1.1" width="436" xmlns="http://www.w3.org/2000/svg" xmlns:nch="http://www.nchsoftware.com/drawpad/" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="rgb(255,255,255)" fill-opacity="0.000" height="705" id="background" width="436" x="0" y="0"/><g class="Layer"><rect fill="rgb(252,252,252)" fill-opacity="1.000" height="582" nch:bounds="57.981,87.315,387.981,669.315" nch:colorstroke="rgba(0,0,0,255)" rx="5.00" stroke="rgb(0,0,0)" stroke-opacity="1.000" stroke-width="6" width="330" x="58" y="87"/><rect fill="rgb(252,252,252)" fill-opacity="1.000" height="64" nch:bounds="114.981,23.315,330.981,87.315" nch:colorstroke="rgba(0,0,0,255)" rx="5.00" stroke="rgb(0,0,0)" stroke-opacity="1.000" stroke-width="6" width="216" x="115" y="23"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="73.981,582.315,373.981,646.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="74" y="582"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="72.981,507.315,372.981,571.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="73" y="507"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="72.981,427.315,372.981,491.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="73" y="427"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="73.981,345.315,373.981,409.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="74" y="345"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="73.981,266.315,373.981,330.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="74" y="266"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="72.981,189.315,372.981,253.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="73" y="189"/><rect fill="rgb(0,0,0)" fill-opacity="1.000" height="64" nch:bounds="73.981,113.315,373.981,177.315" nch:colorstroke="rgba(252,252,252,255)" rx="5.00" stroke="rgb(252,252,252)" stroke-opacity="1.000" stroke-width="1" width="300" x="74" y="113"/></g></svg>
+</svg>

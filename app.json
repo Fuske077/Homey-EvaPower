@@ -116,10 +116,6 @@
       "setable": false,
       "decimals": 2,
       "insights": true,
-      "images": {
-        "small": "assets/icons/battery100x100.png",
-        "large": "assets/icons/battery256x256.png"
-      },
       "icon": "assets/icons/bat.svg"
     },
     "measure_grid_power": {
