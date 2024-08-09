@@ -1,16 +1,10 @@
 {
   "name": { "en": "AlphaESS inverter" },
   "class": "sensor",
-  "capabilities": ["measure_power","measure_battery","measure_pv_power","measure_bat_power","measure_grid_power","set_max_soc"],
+  "capabilities": ["measure_power","measure_battery","measure_pv_power","measure_bat_power","measure_grid_power"],
 "energy": {
     "batteries": ["OTHER"]
-  },
-  "images": {
-    "small": "/drivers/my_driver/assets/images/small.png",
-    "large": "/drivers/my_driver/assets/images/large.png",
-    "xlarge": "/drivers/my_driver/assets/images/xlarge.png"
-  },
-  "platforms": ["local", "cloud"],
+  },"platforms": ["local", "cloud"],
   "connectivity": ["cloud"],
   "pair": [
     {
@@ -22,5 +16,10 @@
       "id": "add_devices",
       "template": "add_devices"
     }
-  ]
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  }
 }

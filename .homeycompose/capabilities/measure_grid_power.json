@@ -11,7 +11,8 @@
       "getable": true,
       "setable": false,
       "decimals": 2,
-	  "insights": true
+	  "insights": true,
+	  "icon": "assets/icons/grid.svg"
 }
 
  

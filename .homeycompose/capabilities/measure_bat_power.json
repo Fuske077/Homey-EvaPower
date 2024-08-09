@@ -13,9 +13,9 @@
       "decimals": 2,
 	  "insights": true,
 	  "images": {
-		"small": "/drivers/inverter/assets/images/battery100x100.png",
-		"large": "/drivers/inverter/assets/images/battery256x256.png"},
-	"icon": "/drivers/inverter/assets/images/battery100x100.png"
+		"small": "assets/icons/battery100x100.png",
+		"large": "assets/icons/battery256x256.png"},
+	"icon": "assets/icons/bat.svg"
 }
 
  

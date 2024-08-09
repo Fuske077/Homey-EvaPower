@@ -1,6 +1,6 @@
 {
   "id": "nl.aboreaon.alpaess",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -10,22 +10,23 @@
     "en": "AlphaESS"
   },
   "description": {
-    "en": "Alphaess "
+    "en": "Gives insights in your home energy management."
   },
   "category": [
     "energy"
   ],
+  "brandColor": "#808080",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png",
     "xlarge": "/assets/images/xlarge.png"
   },
+  "icon": "/assets/icon.svg",
   "author": {
-    "name": "Tim Doorduijn",
-    "email": "tim.doorduijn@gmail.com"
-  }
-  
-
-
+    "name": "Tim Doorduyn",
+    "email": "tdooduyn@hotmail.com"
+  },
+  "source": "https://github.com/Aboreon/Homey-AlphaESS-inverter",
+  "register": "https://github.com/Aboreon/Homey-AlphaESS-inverter"
 }
