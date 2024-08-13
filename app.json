@@ -5,8 +5,7 @@
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
-    "local",
-    "cloud"
+    "local"
   ],
   "name": {
     "en": "AlphaESS"
@@ -50,11 +49,7 @@
         ]
       },
       "platforms": [
-        "local",
-        "cloud"
-      ],
-      "connectivity": [
-        "cloud"
+        "local"
       ],
       "pair": [
         {
@@ -70,9 +65,9 @@
         }
       ],
       "images": {
-        "small": "/assets/images/small.png",
-        "large": "/assets/images/large.png",
-        "xlarge": "/assets/images/xlarge.png"
+        "small": "drivers/inverter/assets/images/small.png",
+        "large": "drivers/inverter/assets/images/large.png",
+        "xlarge": "drivers/inverter/assets/images/xlarge.png"
       },
       "id": "inverter",
       "settings": [

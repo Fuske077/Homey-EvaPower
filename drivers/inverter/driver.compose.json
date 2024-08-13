@@ -4,8 +4,7 @@
   "capabilities": ["measure_power", "measure_battery","measure_pv_power","measure_bat_power","measure_grid_power"],
 "energy": {
     "batteries": ["OTHER"]
-  },"platforms": ["local", "cloud"],
-  "connectivity": ["cloud"],
+  },"platforms": ["local"],
   "pair": [
     {
       "id": "list_devices",
@@ -18,8 +17,8 @@
     }
   ],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "drivers/inverter/assets/images/small.png",
+    "large": "drivers/inverter/assets/images/large.png",
+    "xlarge": "drivers/inverter/assets/images/xlarge.png"
   }
 }
