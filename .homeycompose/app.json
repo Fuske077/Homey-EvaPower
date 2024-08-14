@@ -1,6 +1,6 @@
 {
-  "id": "nl.aboreaon.alpaess", 
-  "version": "0.0.1",
+  "id": "nl.aboreaon.alpaess",
+  "version": "0.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
