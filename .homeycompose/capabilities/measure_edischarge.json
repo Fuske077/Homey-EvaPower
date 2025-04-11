@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Discharged Today"
+  },
+  "units": {
+    "en": "kWh"
+  },
+  "decimals": 2,
+  "getable": true,
+  "setable": false,
+  "insights": true
+}
