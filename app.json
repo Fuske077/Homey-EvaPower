@@ -1,21 +1,16 @@
 {
-  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "nl.aboreon.alphaess.plus",
   "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "AlphaESS Inverter Plus"
   },
   "description": {
     "en": "Enhanced AlphaESS Homey app with daily charge/discharge insights."
   },
-  "category": [
-    "energy"
-  ],
+  "category": ["energy"],
   "brandColor": "#3b82f6",
   "permissions": [],
   "images": {
@@ -36,128 +31,7 @@
       "name": {
         "en": "AlphaESS Inverter"
       },
-      "class": "sensor",
-      "capabilities": [
-        "measure_power",
-        "measure_battery",
-        "measure_pv_power",
-        "measure_bat_power",
-        "measure_grid_power",
-        "custom.echarge",
-        "custom.edischarge"
-      ],
-      "capabilitiesOptions": {
-        "custom.echarge": {
-          "title": { "en": "Charged Today" },
-          "units": { "en": "kWh" },
-          "decimals": 2
-        },
-        "custom.edischarge": {
-          "title": { "en": "Discharged Today" },
-          "units": { "en": "kWh" },
-          "decimals": 2
-        }
-      },
-      "energy": {
-        "batteries": [
-          "OTHER"
-        ]
-      },
-      "platforms": [
-        "local"
-      ],
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "images": {
-        "small": "drivers/inverter/assets/images/small.png",
-        "large": "drivers/inverter/assets/images/large.png",
-        "xlarge": "drivers/inverter/assets/images/xlarge.png"
-      },
-      "settings": [
-        {
-          "id": "sysSn",
-          "type": "text",
-          "label": {
-            "en": "System Serial Number"
-          },
-          "value": "ALB0020.....",
-          "hint": {
-            "en": "The sysSn of your device"
-          }
-        },
-        {
-          "id": "interval",
-          "type": "number",
-          "label": {
-            "en": "Refresh Interval"
-          },
-          "value": 30,
-          "hint": {
-            "en": "Data refresh interval in seconds (min. 10s)"
-          }
-        }
-      ]
+      "class": "sensor"
     }
-  ],
-  "capabilities": {
-    "measure_bat_power": {
-      "type": "number",
-      "title": {
-        "en": "Battery Power",
-        "nl": "Batterijvermogen"
-      },
-      "units": {
-        "en": "W",
-        "nl": "W"
-      },
-      "getable": true,
-      "setable": false,
-      "decimals": 2,
-      "insights": true,
-      "icon": "assets/icons/bat.svg"
-    },
-    "measure_grid_power": {
-      "type": "number",
-      "title": {
-        "en": "Grid Power",
-        "nl": "Netvermogen"
-      },
-      "units": {
-        "en": "W",
-        "nl": "W"
-      },
-      "getable": true,
-      "setable": false,
-      "decimals": 2,
-      "insights": true,
-      "icon": "assets/icons/grid.svg"
-    },
-    "measure_pv_power": {
-      "type": "number",
-      "title": {
-        "en": "PV Power",
-        "nl": "PV Vermogen"
-      },
-      "units": {
-        "en": "W",
-        "nl": "W"
-      },
-      "getable": true,
-      "setable": false,
-      "decimals": 2,
-      "insights": true,
-      "icon": "assets/icons/solar.svg"
-    }
-  }
+  ]
 }
