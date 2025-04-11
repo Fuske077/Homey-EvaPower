@@ -1,22 +1,22 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
-  "id": "nl.aboreaon.alpaess",
-  "version": "0.0.2",
+  "id": "nl.aboreon.alphaess.plus",
+  "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
     "local"
   ],
   "name": {
-    "en": "AlphaESS"
+    "en": "AlphaESS Inverter Plus"
   },
   "description": {
-    "en": "Gives insights in your home energy management."
+    "en": "Enhanced AlphaESS Homey app with daily charge/discharge insights."
   },
   "category": [
     "energy"
   ],
-  "brandColor": "#808080",
+  "brandColor": "#3b82f6",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -32,8 +32,9 @@
   "register": "https://github.com/Aboreon/Homey-AlphaESS-inverter",
   "drivers": [
     {
+      "id": "inverter",
       "name": {
-        "en": "AlphaESS inverter"
+        "en": "AlphaESS Inverter"
       },
       "class": "sensor",
       "capabilities": [
@@ -41,8 +42,22 @@
         "measure_battery",
         "measure_pv_power",
         "measure_bat_power",
-        "measure_grid_power"
+        "measure_grid_power",
+        "custom.echarge",
+        "custom.edischarge"
       ],
+      "capabilitiesOptions": {
+        "custom.echarge": {
+          "title": { "en": "Charged Today" },
+          "units": { "en": "kWh" },
+          "decimals": 2
+        },
+        "custom.edischarge": {
+          "title": { "en": "Discharged Today" },
+          "units": { "en": "kWh" },
+          "decimals": 2
+        }
+      },
       "energy": {
         "batteries": [
           "OTHER"
@@ -69,13 +84,12 @@
         "large": "drivers/inverter/assets/images/large.png",
         "xlarge": "drivers/inverter/assets/images/xlarge.png"
       },
-      "id": "inverter",
       "settings": [
         {
           "id": "sysSn",
           "type": "text",
           "label": {
-            "en": "sysSn"
+            "en": "System Serial Number"
           },
           "value": "ALB0020.....",
           "hint": {
@@ -86,11 +100,11 @@
           "id": "interval",
           "type": "number",
           "label": {
-            "en": "Interval"
+            "en": "Refresh Interval"
           },
           "value": 30,
           "hint": {
-            "en": "the refresh interval in seconds, minimum once every 10 seconds"
+            "en": "Data refresh interval in seconds (min. 10s)"
           }
         }
       ]
@@ -100,8 +114,8 @@
     "measure_bat_power": {
       "type": "number",
       "title": {
-        "en": "Battery power",
-        "nl": "Batterij vermogen"
+        "en": "Battery Power",
+        "nl": "Batterijvermogen"
       },
       "units": {
         "en": "W",
@@ -116,8 +130,8 @@
     "measure_grid_power": {
       "type": "number",
       "title": {
-        "en": "Grid power",
-        "nl": "Electriciteitsnet vermogen"
+        "en": "Grid Power",
+        "nl": "Netvermogen"
       },
       "units": {
         "en": "W",
