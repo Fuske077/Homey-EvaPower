@@ -1,5 +1,7 @@
 {
-  "name": { "en": "AlphaESS inverter" },
+  "name": {
+    "en": "AlphaESS Inverter"
+  },
   "class": "sensor",
   "capabilities": [
     "measure_power",
@@ -12,13 +14,21 @@
   ],
   "capabilitiesOptions": {
     "custom.echarge": {
-      "title": { "en": "Charged Today" },
-      "units": { "en": "kWh" },
+      "title": {
+        "en": "Charged Today"
+      },
+      "units": {
+        "en": "kWh"
+      },
       "decimals": 2
     },
     "custom.edischarge": {
-      "title": { "en": "Discharged Today" },
-      "units": { "en": "kWh" },
+      "title": {
+        "en": "Discharged Today"
+      },
+      "units": {
+        "en": "kWh"
+      },
       "decimals": 2
     }
   },
@@ -30,7 +40,9 @@
     {
       "id": "list_devices",
       "template": "list_devices",
-      "navigation": { "next": "add_devices" }
+      "navigation": {
+        "next": "add_devices"
+      }
     },
     {
       "id": "add_devices",
