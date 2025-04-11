@@ -72,8 +72,8 @@ class InverterDevice extends Homey.Device {
 
       const summary = response.data.data;
       if (summary) {
-        await this.setCapabilityValue('custom.echarge', summary.echarge);
-        await this.setCapabilityValue('custom.edischarge', summary.edischarge);
+        await this.setCapabilityValue('measure_echarge', summary.echarge);
+        await this.setCapabilityValue('measure_edischarge', summary.edischarge);
       }
     } catch (error) {
       this.error('Failed to fetch daily summary:', error.message);
