@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Charged Today"
+  },
+  "units": {
+    "en": "kWh"
+  },
+  "decimals": 2,
+  "getable": true,
+  "setable": false,
+  "insights": true
+}
