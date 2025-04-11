@@ -9,11 +9,11 @@
     "measure_pv_power",
     "measure_bat_power",
     "measure_grid_power",
-    "custom.echarge",
-    "custom.edischarge"
+    "measure_echarge",
+    "measure_edischarge"
   ],
   "capabilitiesOptions": {
-    "custom.echarge": {
+    "measure_echarge": {
       "title": {
         "en": "Charged Today"
       },
@@ -22,7 +22,7 @@
       },
       "decimals": 2
     },
-    "custom.edischarge": {
+    "measure_edischarge": {
       "title": {
         "en": "Discharged Today"
       },
@@ -32,10 +32,10 @@
       "decimals": 2
     }
   },
+  "platforms": ["local"],
   "energy": {
     "batteries": ["OTHER"]
   },
-  "platforms": ["local"],
   "pair": [
     {
       "id": "list_devices",
