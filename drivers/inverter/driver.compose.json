@@ -1,10 +1,31 @@
 {
   "name": { "en": "AlphaESS inverter" },
   "class": "sensor",
-  "capabilities": ["measure_power", "measure_battery","measure_pv_power","measure_bat_power","measure_grid_power"],
-"energy": {
+  "capabilities": [
+    "measure_power",
+    "measure_battery",
+    "measure_pv_power",
+    "measure_bat_power",
+    "measure_grid_power",
+    "custom.echarge",
+    "custom.edischarge"
+  ],
+  "capabilitiesOptions": {
+    "custom.echarge": {
+      "title": { "en": "Charged Today" },
+      "units": { "en": "kWh" },
+      "decimals": 2
+    },
+    "custom.edischarge": {
+      "title": { "en": "Discharged Today" },
+      "units": { "en": "kWh" },
+      "decimals": 2
+    }
+  },
+  "energy": {
     "batteries": ["OTHER"]
-  },"platforms": ["local"],
+  },
+  "platforms": ["local"],
   "pair": [
     {
       "id": "list_devices",
