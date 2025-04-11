@@ -7,15 +7,13 @@ class InverterDevice extends Homey.Device {
 	
   async onInit() {
     this.log('InverterDevice has been initialized');
-    // create appropriate variables
     this.sysSn = this.getSetting('sysSn');
-    this.refreshInterval = this.getSetting('interval') < 10 ? 10 : this.getSetting('interval'); // refresh interval in seconds minimum 10	
+    this.refreshInterval = this.getSetting('interval') < 10 ? 10 : this.getSetting('interval');
 
     this.appId = this.homey.settings.get('appId');
     this.appSecret = this.homey.settings.get('appSecret');
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`; 
 	
-    // Start polling for data
     this.startPolling();
   }
   
@@ -47,19 +45,19 @@ class InverterDevice extends Homey.Device {
     };
 
     try {
-      // 📡 Real-time power data
+      // Real-time data ophalen
       const response = await axios.get(this.realtimeDataUrl, { headers });
       const data = response.data;
-	  
-      this.setCapabilityValue('measure_power', data.data.pload);
-      this.setCapabilityValue('measure_battery', data.data.soc);
-      this.setCapabilityValue('measure_pv_power', data.data.ppv);
-      this.setCapabilityValue('measure_bat_power', data.data.pbat * -1); // make discharging negative
-      this.setCapabilityValue('measure_grid_power', data.data.pgrid);
 
-      // 🌅 NEW: Daily summary data
+      await this.setCapabilityValue('measure_power', data.data.pload);
+      await this.setCapabilityValue('measure_battery', data.data.soc);
+      await this.setCapabilityValue('measure_pv_power', data.data.ppv);
+      await this.setCapabilityValue('measure_bat_power', data.data.pbat * -1);
+      await this.setCapabilityValue('measure_grid_power', data.data.pgrid);
+
+      // Daggegevens ophalen
       await this.fetchDailySummary(headers);
-	  
+
     } catch (error) {
       this.error('Failed to fetch data:', error);
     }
@@ -74,8 +72,8 @@ class InverterDevice extends Homey.Device {
 
       const summary = response.data.data;
       if (summary) {
-        this.setCapabilityValue('custom.echarge', summary.echarge);
-        this.setCapabilityValue('custom.edischarge', summary.edischarge);
+        await this.setCapabilityValue('custom.echarge', summary.echarge);
+        await this.setCapabilityValue('custom.edischarge', summary.edischarge);
       }
     } catch (error) {
       this.error('Failed to fetch daily summary:', error.message);
