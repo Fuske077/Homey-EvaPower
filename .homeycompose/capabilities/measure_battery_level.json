@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Battery Level"
+  },
+  "units": {
+    "en": "%"
+  },
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/measure_battery_level.svg" // optioneel
+}
