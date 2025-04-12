@@ -18,9 +18,9 @@
   "brandColor": "#808080",
   "permissions": [],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "/assets/images/small-eva.png",
+    "large": "/assets/images/large-eva.png",
+    "xlarge": "/assets/images/xlarge-eva.png"
   },
   "icon": "/assets/icon.svg",
   "author": {
