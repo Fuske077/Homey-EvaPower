@@ -12,5 +12,5 @@
   "getable": true,
   "setable": false,
   "insights": true,
-  "icon": "assets/icons/measure_battery_level.svg"
+  "icon": "assets/icons/bat.svg"
 }
