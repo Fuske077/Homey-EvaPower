@@ -1,5 +1,5 @@
 {
-  "id": "nl.aboreaon.alpaess",
+  "id": "nl.fuske.evapower",
   "version": "0.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
@@ -7,7 +7,7 @@
     "local"
   ],
   "name": {
-    "en": "AlphaESS"
+    "en": "EvaPower"
   },
   "description": {
     "en": "Gives insights in your home energy management."
