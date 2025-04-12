@@ -10,5 +10,5 @@
   "getable": true,
   "setable": false,
   "insights": true,
-  "icon": "assets/icons/measure_edischarge.svg"
+  "icon": "assets/icons/discharge.svg"
 }
