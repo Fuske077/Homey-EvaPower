@@ -1,11 +1,11 @@
 {
   "type": "number",
   "title": {
-    "en": "Charged today"
+    "en": "Charged today",
     "nl": "Geladen vandaag"
   },
   "units": {
-    "en": "kWh"
+    "en": "kWh",
     "nl": "kWh"
   },
   "decimals": 2,
