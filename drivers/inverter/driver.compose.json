@@ -15,19 +15,23 @@
   "capabilitiesOptions": {
     "measure_echarge": {
       "title": {
-        "en": "Charged Today"
+        "en": "Charged Today",
+        "nl": "Geladen vandaag"
       },
       "units": {
-        "en": "kWh"
+        "en": "kWh",
+        "nl": "kWh"
       },
       "decimals": 2
     },
     "measure_edischarge": {
       "title": {
-        "en": "Discharged Today"
+        "en": "Discharged Today",
+        "nl": "Ontladen vandaag"
       },
       "units": {
-        "en": "kWh"
+        "en": "kWh",
+        "nl": "kWh"
       },
       "decimals": 2
     }
