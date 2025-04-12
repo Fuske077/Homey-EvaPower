@@ -6,6 +6,7 @@
   "capabilities": [
     "measure_power",
     "measure_battery",
+    "measure_battery_level",
     "measure_pv_power",
     "measure_bat_power",
     "measure_grid_power",
