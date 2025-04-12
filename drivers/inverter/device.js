@@ -51,6 +51,7 @@ class InverterDevice extends Homey.Device {
 
       await this.setCapabilityValue('measure_power', data.data.pload);
       await this.setCapabilityValue('measure_battery', data.data.soc);
+      await this.setCapabilityValue('measure_battery_level', data.data.soc);
       await this.setCapabilityValue('measure_pv_power', data.data.ppv);
       await this.setCapabilityValue('measure_bat_power', data.data.pbat * -1);
       await this.setCapabilityValue('measure_grid_power', data.data.pgrid);
