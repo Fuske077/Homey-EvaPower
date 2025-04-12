@@ -1,10 +1,12 @@
 {
   "type": "number",
   "title": {
-    "en": "Ontladen vandaag"
+    "en": "Discharged today",
+    "nl": "Ontladen vandaag"
   },
   "units": {
-    "en": "kWh"
+    "en": "kWh",
+    "nl": "kWh"
   },
   "decimals": 2,
   "getable": true,
