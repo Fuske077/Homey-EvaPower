@@ -24,8 +24,8 @@
   },
   "icon": "/assets/icon.svg",
   "author": {
-    "name": "Tim Doorduyn",
-    "email": "tdooduyn@hotmail.com"
+    "name": "Tom Vaessen",
+    "email": "tommyvaessen@gmail.com"
   },
   "source": "https://github.com/Aboreon/Homey-AlphaESS-inverter",
   "register": "https://github.com/Aboreon/Homey-AlphaESS-inverter"
