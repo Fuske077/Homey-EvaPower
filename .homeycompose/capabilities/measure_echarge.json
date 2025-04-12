@@ -10,5 +10,5 @@
   "getable": true,
   "setable": false,
   "insights": true,
-  "icon": "assets/icons/measure_echarge.svg"
+  "icon": "assets/icons/charge.svg"
 }
