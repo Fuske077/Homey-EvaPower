@@ -1,6 +1,6 @@
 {
   "id": "nl.fuske.evapower",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
