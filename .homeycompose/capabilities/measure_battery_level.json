@@ -1,10 +1,12 @@
 {
   "type": "number",
   "title": {
-    "en": "Battery Level"
+    "en": "Battery Level",
+    "nl": "Accu niveau"
   },
   "units": {
-    "en": "%"
+    "en": "%",
+    "nl": "%"
   },
   "decimals": 0,
   "getable": true,
