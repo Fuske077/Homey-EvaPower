@@ -1,14 +1,14 @@
 {
-  "id": "nl.aboreon.alphaess.plus",
+  "id": "nl.fuske.evapower",
   "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": ["local"],
   "name": {
-    "en": "AlphaESS Inverter Plus"
+    "en": "EvaPower"
   },
   "description": {
-    "en": "Enhanced AlphaESS Homey app with daily charge/discharge insights."
+    "en": "EvaPower Homey app with daily charge/discharge insights."
   },
   "category": ["energy"],
   "brandColor": "#3b82f6",
@@ -20,8 +20,8 @@
   },
   "icon": "/assets/icon.svg",
   "author": {
-    "name": "Tim Doorduyn",
-    "email": "tdooduyn@hotmail.com"
+    "name": "Tom Vaessen",
+    "email": "tommyvaessen@gmail.com"
   },
   "source": "https://github.com/Aboreon/Homey-AlphaESS-inverter",
   "register": "https://github.com/Aboreon/Homey-AlphaESS-inverter",
@@ -29,7 +29,7 @@
     {
       "id": "inverter",
       "name": {
-        "en": "AlphaESS Inverter"
+        "en": "EvaPower"
       },
       "class": "sensor"
     }
