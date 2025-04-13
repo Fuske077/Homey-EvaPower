@@ -64,10 +64,7 @@ class InverterDevice extends Homey.Device {
 
       await this.fetchDailySummary(headers, soc);
 
-      // === Berekeningen tijd tot vol / leeg ===
-      const vermogenIn = vermogenGrid > 0 ? vermogenGrid : 0;
-      const vermogenUit = vermogenAccu < 0 ? Math.abs(vermogenAccu) : 0;
-
+      // === Tijd tot vol / leeg ===
       const capaciteit = this.getSetting('accuCapacity') || 2;
       const minSoc = 10;
       const maxSoc = 100;
@@ -75,11 +72,19 @@ class InverterDevice extends Homey.Device {
       const energieTotLeeg = ((soc - minSoc) / 100) * capaciteit * 1000;
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
-      const tijdTotLeeg = vermogenUit > 0 ? Math.round((energieTotLeeg / vermogenUit) * 10) / 10 : null;
-      const tijdTotVol = vermogenIn > 0 ? Math.round((energieTotVol / vermogenIn) * 10) / 10 : null;
+      // Alleen berekenen als er echt geladen/ontladen wordt
+      let tijdTotLeeg = 0;
+      if (vermogenAccu < 0) {
+        tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
+      }
 
-      await this.setCapabilityValue('measure_time_to_empty', tijdTotLeeg || 0);
-      await this.setCapabilityValue('measure_time_to_full', tijdTotVol || 0);
+      let tijdTotVol = 0;
+      if (vermogenGrid > 0) {
+        tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
+      }
+
+      await this.setCapabilityValue('measure_time_to_empty', tijdTotLeeg);
+      await this.setCapabilityValue('measure_time_to_full', tijdTotVol);
 
     } catch (error) {
       this.error('Failed to fetch data:', error);
@@ -104,11 +109,9 @@ class InverterDevice extends Homey.Device {
         // === Dagelijks rendement berekening ===
         const capaciteit = this.getSetting('accuCapacity') || 2;
 
-        // Lees socStart uit storage
         const socStart = this.store.get('socStart') ?? currentSoc;
         const socEind = currentSoc;
 
-        // Update soc voor volgende cyclus
         this.store.set('socStart', socEind);
 
         const deltaSocKWh = ((socEind - socStart) / 100) * capaciteit * 0.9;
