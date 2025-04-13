@@ -54,7 +54,6 @@ class InverterDevice extends Homey.Device {
 
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
-      await this.setCapabilityValue('measure_grid_power', vermogenGrid);
 
       // Positief: laden vanaf net | Negatief: terugleveren naar net
       const gridCharge = vermogenGrid > 0 ? vermogenGrid : 0;
