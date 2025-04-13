@@ -54,11 +54,13 @@ class InverterDevice extends Homey.Device {
       const vermogenAccu = data.data.pbat;
       const vermogenGrid = data.data.pgrid;
 
+      this.log(`🔋 API-data: pbat=${vermogenAccu}W, pgrid=${vermogenGrid}W, soc=${soc}%`);
+
       await this.setCapabilityValue('measure_power', data.data.pload);
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
       await this.setCapabilityValue('measure_pv_power', data.data.ppv);
-      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // alleen visueel
+      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // voor visueel
       await this.setCapabilityValue('measure_grid_power', vermogenGrid);
 
       await this.fetchDailySummary(headers, soc);
@@ -72,16 +74,20 @@ class InverterDevice extends Homey.Device {
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
       let tijdTotLeeg = 0;
-      if (vermogenAccu < -10) {
+      if (typeof vermogenAccu === 'number' && vermogenAccu < -10) {
         tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
+      } else {
+        tijdTotLeeg = 0;
       }
 
       let tijdTotVol = 0;
-      if (vermogenGrid > 10) {
+      if (typeof vermogenGrid === 'number' && vermogenGrid > 10) {
         tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
+      } else {
+        tijdTotVol = 0;
       }
 
-      this.log(`🔍 pbat=${vermogenAccu}W, pgrid=${vermogenGrid}W → leeg: ${tijdTotLeeg}h, vol: ${tijdTotVol}h`);
+      this.log(`🕒 Tijd tot leeg: ${tijdTotLeeg}h, tijd tot vol: ${tijdTotVol}h`);
 
       await this.setCapabilityValue('measure_time_to_empty', tijdTotLeeg);
       await this.setCapabilityValue('measure_time_to_full', tijdTotVol);
@@ -106,7 +112,6 @@ class InverterDevice extends Homey.Device {
         await this.setCapabilityValue('measure_echarge', geladen);
         await this.setCapabilityValue('measure_edischarge', ontladen);
 
-        // === Dagelijks rendement ===
         const capaciteit = this.getSetting('accuCapacity') || 2;
         const socStart = this.store.get('socStart') ?? currentSoc;
         const socEind = currentSoc;
@@ -121,7 +126,6 @@ class InverterDevice extends Homey.Device {
 
         await this.setCapabilityValue('measure_rendement_day', Math.round(dagrendement * 100) / 100);
 
-        // === Lifetime rendement ===
         const totaalLading = this.store.get('lifetimeEcharge') || 0;
         const totaalOntlading = this.store.get('lifetimeEdischarge') || 0;
 
