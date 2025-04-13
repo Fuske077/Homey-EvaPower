@@ -1,13 +1,16 @@
 {
-  "title": {
-    "en": "Grid Export",
-    "nl": "Teruglevering"
-  },
   "type": "number",
-  "decimals": 0,
+  "title": {
+    "en": "Grid Discharge",
+    "nl": "Terugelvering"
+  },
   "units": {
     "en": "W",
     "nl": "W"
   },
-  "icon": "assets/icons/bat.svg"
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/grid_charge.svg"
 }
