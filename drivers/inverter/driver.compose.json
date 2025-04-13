@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "EvaPower"
+    "en": "EvaPower",
+    "nl": "EvaPower"
   },
   "class": "sensor",
   "capabilities": [
@@ -13,7 +14,7 @@
     "measure_echarge",
     "measure_edischarge",
     "measure_time_to_empty",
-    "measure_time_to_full" 
+    "measure_time_to_full"
   ],
   "capabilitiesOptions": {
     "measure_echarge": {
@@ -37,8 +38,77 @@
         "nl": "kWh"
       },
       "decimals": 2
+    },
+    "measure_time_to_empty": {
+      "title": {
+        "en": "Time to Empty",
+        "nl": "Tijd tot leeg"
+      },
+      "units": {
+        "en": "h",
+        "nl": "u"
+      },
+      "decimals": 1
+    },
+    "measure_time_to_full": {
+      "title": {
+        "en": "Time to Full",
+        "nl": "Tijd tot vol"
+      },
+      "units": {
+        "en": "h",
+        "nl": "u"
+      },
+      "decimals": 1
     }
   },
+  "settings": [
+    {
+      "id": "sysSn",
+      "type": "text",
+      "label": {
+        "en": "System Serial Number",
+        "nl": "Systeem serienummer"
+      },
+      "hint": {
+        "en": "Enter the system serial number (sysSn)",
+        "nl": "Vul het serienummer van je systeem in (sysSn)"
+      }
+    },
+    {
+      "id": "interval",
+      "type": "number",
+      "label": {
+        "en": "Refresh Interval",
+        "nl": "Verversingsinterval"
+      },
+      "value": 30,
+      "hint": {
+        "en": "Data refresh interval in seconds (min. 10s)",
+        "nl": "Interval voor dataverversing in seconden (min. 10s)"
+      }
+    },
+    {
+      "id": "accuCapacity",
+      "type": "number",
+      "label": {
+        "en": "Battery Capacity",
+        "nl": "Accucapaciteit"
+      },
+      "hint": {
+        "en": "Set your battery's total capacity (1–6 kWh)",
+        "nl": "Stel de totale accucapaciteit in (1–6 kWh)"
+      },
+      "value": 2,
+      "min": 1,
+      "max": 6,
+      "step": 0.1,
+      "units": {
+        "en": "kWh",
+        "nl": "kWh"
+      }
+    }
+  ],
   "platforms": ["local"],
   "energy": {
     "batteries": ["OTHER"]
