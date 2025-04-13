@@ -12,5 +12,5 @@
   "getable": true,
   "setable": false,
   "insights": true,
-  "icon": "assets/icons/grid_charge.svg"
+  "icon": "assets/icons/bat.svg"
 }
