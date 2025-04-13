@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Time to Full",
+    "nl": "Tijd tot vol"
+  },
+  "units": {
+    "en": "h",
+    "nl": "u"
+  },
+  "decimals": 1,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/time.svg"
+}
