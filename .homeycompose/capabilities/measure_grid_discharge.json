@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Grid Export",
+    "nl": "Teruglevering"
+  },
+  "type": "number",
+  "decimals": 0,
+  "units": {
+    "en": "W",
+    "nl": "W"
+  },
+  "icon": "assets/icons/bat.svg"
+}
