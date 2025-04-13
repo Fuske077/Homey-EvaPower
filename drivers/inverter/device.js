@@ -6,7 +6,7 @@ const utils = require('./utils');
 class InverterDevice extends Homey.Device {
 
   async onInit() {
-    this.log('InverterDevice has been initialized');
+    this.log('EvaPower InverterDevice initialized');
     this.sysSn = this.getSetting('sysSn');
     this.refreshInterval = this.getSetting('interval') < 10 ? 10 : this.getSetting('interval');
 
@@ -15,7 +15,6 @@ class InverterDevice extends Homey.Device {
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`;
 
     this.store = this.homey.storage;
-
     this.startPolling();
   }
 
@@ -51,17 +50,18 @@ class InverterDevice extends Homey.Device {
       const data = response.data;
 
       const soc = data.data.soc;
-      const vermogenAccu = data.data.pbat;
       const vermogenGrid = data.data.pgrid;
 
-      this.log(`🔋 API-data: pbat=${vermogenAccu}W, pgrid=${vermogenGrid}W, soc=${soc}%`);
-
-      await this.setCapabilityValue('measure_power', data.data.pload);
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
-      await this.setCapabilityValue('measure_pv_power', data.data.ppv);
-      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // voor visueel
       await this.setCapabilityValue('measure_grid_power', vermogenGrid);
+
+      // Positief: laden vanaf net | Negatief: terugleveren naar net
+      const gridCharge = vermogenGrid > 0 ? vermogenGrid : 0;
+      const gridDischarge = vermogenGrid < 0 ? Math.abs(vermogenGrid) : 0;
+
+      await this.setCapabilityValue('measure_grid_charge', gridCharge);
+      await this.setCapabilityValue('measure_grid_discharge', gridDischarge);
 
       await this.fetchDailySummary(headers, soc);
 
@@ -74,20 +74,14 @@ class InverterDevice extends Homey.Device {
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
       let tijdTotLeeg = 0;
-      if (typeof vermogenAccu === 'number' && vermogenAccu < -10) {
-        tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
-      } else {
-        tijdTotLeeg = 0;
+      if (gridDischarge > 10) {
+        tijdTotLeeg = Math.round((energieTotLeeg / gridDischarge) * 10) / 10;
       }
 
       let tijdTotVol = 0;
-      if (typeof vermogenGrid === 'number' && vermogenGrid > 10) {
-        tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
-      } else {
-        tijdTotVol = 0;
+      if (gridCharge > 10) {
+        tijdTotVol = Math.round((energieTotVol / gridCharge) * 10) / 10;
       }
-
-      this.log(`🕒 Tijd tot leeg: ${tijdTotLeeg}h, tijd tot vol: ${tijdTotVol}h`);
 
       await this.setCapabilityValue('measure_time_to_empty', tijdTotLeeg);
       await this.setCapabilityValue('measure_time_to_full', tijdTotVol);
