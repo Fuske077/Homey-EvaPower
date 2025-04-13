@@ -14,7 +14,8 @@
     "measure_echarge",
     "measure_edischarge",
     "measure_time_to_empty",
-    "measure_time_to_full"
+    "measure_time_to_full",
+    "measure_rendement_day"
   ],
   "capabilitiesOptions": {
     "measure_echarge": {
