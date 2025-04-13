@@ -14,7 +14,6 @@ class InverterDevice extends Homey.Device {
     this.appSecret = this.homey.settings.get('appSecret');
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`;
 
-    // Prepare persistent storage
     this.store = this.homey.storage;
 
     this.startPolling();
@@ -59,12 +58,12 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
       await this.setCapabilityValue('measure_pv_power', data.data.ppv);
-      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1);
+      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // alleen visueel omdraaien
       await this.setCapabilityValue('measure_grid_power', vermogenGrid);
 
       await this.fetchDailySummary(headers, soc);
 
-      // === Tijd tot vol / leeg (alleen bij echte laad/ontlaad) ===
+      // === Tijd tot vol/leeg ===
       const capaciteit = this.getSetting('accuCapacity') || 2;
       const minSoc = 10;
       const maxSoc = 100;
@@ -72,16 +71,13 @@ class InverterDevice extends Homey.Device {
       const energieTotLeeg = ((soc - minSoc) / 100) * capaciteit * 1000;
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
-      const isOntladen = vermogenAccu < -10;
-      const isLadenViaGrid = vermogenGrid > 10;
-
       let tijdTotLeeg = 0;
-      if (isOntladen) {
+      if (vermogenAccu < 0) {
         tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
       }
 
       let tijdTotVol = 0;
-      if (isLadenViaGrid) {
+      if (vermogenGrid > 0) {
         tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
       }
 
