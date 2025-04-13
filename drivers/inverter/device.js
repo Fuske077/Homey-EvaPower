@@ -14,6 +14,9 @@ class InverterDevice extends Homey.Device {
     this.appSecret = this.homey.settings.get('appSecret');
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`;
 
+    // Prepare persistent storage
+    this.store = this.homey.storage;
+
     this.startPolling();
   }
 
@@ -59,7 +62,7 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1);
       await this.setCapabilityValue('measure_grid_power', vermogenGrid);
 
-      await this.fetchDailySummary(headers);
+      await this.fetchDailySummary(headers, soc);
 
       // === Berekeningen tijd tot vol / leeg ===
       const vermogenIn = vermogenGrid > 0 ? vermogenGrid : 0;
@@ -83,7 +86,7 @@ class InverterDevice extends Homey.Device {
     }
   }
 
-  async fetchDailySummary(headers) {
+  async fetchDailySummary(headers, currentSoc) {
     try {
       const response = await axios.get('https://openapi.alphaess.com/api/getSumDataForCustomer', {
         headers,
@@ -92,8 +95,29 @@ class InverterDevice extends Homey.Device {
 
       const summary = response.data.data;
       if (summary) {
-        await this.setCapabilityValue('measure_echarge', summary.echarge);
-        await this.setCapabilityValue('measure_edischarge', summary.edischarge);
+        const geladen = summary.echarge;
+        const ontladen = summary.edischarge;
+
+        await this.setCapabilityValue('measure_echarge', geladen);
+        await this.setCapabilityValue('measure_edischarge', ontladen);
+
+        // === Dagelijks rendement berekening ===
+        const capaciteit = this.getSetting('accuCapacity') || 2;
+
+        // Lees socStart uit storage
+        const socStart = this.store.get('socStart') ?? currentSoc;
+        const socEind = currentSoc;
+
+        // Update soc voor volgende cyclus
+        this.store.set('socStart', socEind);
+
+        const deltaSocKWh = ((socEind - socStart) / 100) * capaciteit * 0.9;
+
+        const rendement = geladen > 0
+          ? ((ontladen + deltaSocKWh) / geladen) * 100
+          : 0;
+
+        await this.setCapabilityValue('measure_rendement_day', Math.round(rendement * 100) / 100);
       }
     } catch (error) {
       this.error('Failed to fetch daily summary:', error.message);
