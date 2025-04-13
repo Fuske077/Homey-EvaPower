@@ -1,13 +1,16 @@
 {
+  "type": "number",
   "title": {
     "en": "Grid Charge",
     "nl": "Laden via net"
   },
-  "type": "number",
-  "decimals": 0,
   "units": {
     "en": "W",
     "nl": "W"
   },
-  "icon": "assets/icons/grid.svg"
+  "decimals": 0,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/grid_charge.svg"
 }
