@@ -64,7 +64,7 @@ class InverterDevice extends Homey.Device {
 
       await this.fetchDailySummary(headers, soc);
 
-      // === Tijd tot vol / leeg ===
+      // === Tijd tot vol / leeg (alleen bij echte laad/ontlaad) ===
       const capaciteit = this.getSetting('accuCapacity') || 2;
       const minSoc = 10;
       const maxSoc = 100;
@@ -72,13 +72,16 @@ class InverterDevice extends Homey.Device {
       const energieTotLeeg = ((soc - minSoc) / 100) * capaciteit * 1000;
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
+      const isOntladen = vermogenAccu < -10;
+      const isLadenViaGrid = vermogenGrid > 10;
+
       let tijdTotLeeg = 0;
-      if (vermogenAccu < 0) {
+      if (isOntladen) {
         tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
       }
 
       let tijdTotVol = 0;
-      if (vermogenGrid > 0) {
+      if (isLadenViaGrid) {
         tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
       }
 
@@ -111,7 +114,9 @@ class InverterDevice extends Homey.Device {
         const socEind = currentSoc;
         this.store.set('socStart', socEind);
 
-        const deltaSocKWh = ((socEind - socStart) / 100) * capaciteit * 0.9;
+        const brutoDelta = socEind - socStart;
+        const deltaSocKWh = brutoDelta > 0 ? (brutoDelta / 100) * capaciteit * 0.9 : 0;
+
         const dagrendement = geladen > 0
           ? ((ontladen + deltaSocKWh) / geladen) * 100
           : 0;
