@@ -58,7 +58,7 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
       await this.setCapabilityValue('measure_pv_power', data.data.ppv);
-      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // alleen visueel omdraaien
+      await this.setCapabilityValue('measure_bat_power', vermogenAccu * -1); // alleen visueel
       await this.setCapabilityValue('measure_grid_power', vermogenGrid);
 
       await this.fetchDailySummary(headers, soc);
@@ -72,14 +72,16 @@ class InverterDevice extends Homey.Device {
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
       let tijdTotLeeg = 0;
-      if (vermogenAccu < 0) {
+      if (vermogenAccu < -10) {
         tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
       }
 
       let tijdTotVol = 0;
-      if (vermogenGrid > 0) {
+      if (vermogenGrid > 10) {
         tijdTotVol = Math.round((energieTotVol / vermogenGrid) * 10) / 10;
       }
+
+      this.log(`🔍 pbat=${vermogenAccu}W, pgrid=${vermogenGrid}W → leeg: ${tijdTotLeeg}h, vol: ${tijdTotVol}h`);
 
       await this.setCapabilityValue('measure_time_to_empty', tijdTotLeeg);
       await this.setCapabilityValue('measure_time_to_full', tijdTotVol);
