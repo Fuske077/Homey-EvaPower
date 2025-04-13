@@ -11,7 +11,9 @@
     "measure_bat_power",
     "measure_grid_power",
     "measure_echarge",
-    "measure_edischarge"
+    "measure_edischarge",
+    "measure_time_to_empty",
+    "measure_time_to_full" 
   ],
   "capabilitiesOptions": {
     "measure_echarge": {
