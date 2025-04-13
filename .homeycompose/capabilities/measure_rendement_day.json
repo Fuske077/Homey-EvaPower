@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Daily Battery Efficiency",
+    "nl": "Dagelijks rendement"
+  },
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "decimals": 2,
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/rendement.svg"
+}
