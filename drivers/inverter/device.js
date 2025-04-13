@@ -72,7 +72,6 @@ class InverterDevice extends Homey.Device {
       const energieTotLeeg = ((soc - minSoc) / 100) * capaciteit * 1000;
       const energieTotVol = ((maxSoc - soc) / 100) * capaciteit * 1000;
 
-      // Alleen berekenen als er echt geladen/ontladen wordt
       let tijdTotLeeg = 0;
       if (vermogenAccu < 0) {
         tijdTotLeeg = Math.round((energieTotLeeg / Math.abs(vermogenAccu)) * 10) / 10;
@@ -106,21 +105,36 @@ class InverterDevice extends Homey.Device {
         await this.setCapabilityValue('measure_echarge', geladen);
         await this.setCapabilityValue('measure_edischarge', ontladen);
 
-        // === Dagelijks rendement berekening ===
+        // === Dagelijks rendement ===
         const capaciteit = this.getSetting('accuCapacity') || 2;
-
         const socStart = this.store.get('socStart') ?? currentSoc;
         const socEind = currentSoc;
-
         this.store.set('socStart', socEind);
 
         const deltaSocKWh = ((socEind - socStart) / 100) * capaciteit * 0.9;
-
-        const rendement = geladen > 0
+        const dagrendement = geladen > 0
           ? ((ontladen + deltaSocKWh) / geladen) * 100
           : 0;
 
-        await this.setCapabilityValue('measure_rendement_day', Math.round(rendement * 100) / 100);
+        await this.setCapabilityValue('measure_rendement_day', Math.round(dagrendement * 100) / 100);
+
+        // === Lifetime rendement ===
+        const totaalLading = this.store.get('lifetimeEcharge') || 0;
+        const totaalOntlading = this.store.get('lifetimeEdischarge') || 0;
+
+        const nieuweLading = totaalLading + geladen;
+        const nieuweOntlading = totaalOntlading + ontladen;
+
+        this.store.set('lifetimeEcharge', nieuweLading);
+        this.store.set('lifetimeEdischarge', nieuweOntlading);
+
+        const potentieelOntladen = capaciteit * (currentSoc / 100) * 0.9;
+
+        const lifetimeRendement = nieuweLading > 0
+          ? ((nieuweOntlading + potentieelOntladen) / nieuweLading) * 100
+          : 0;
+
+        await this.setCapabilityValue('measure_rendement_total', Math.round(lifetimeRendement * 100) / 100);
       }
     } catch (error) {
       this.error('Failed to fetch daily summary:', error.message);
