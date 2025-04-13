@@ -2,7 +2,7 @@
   "type": "number",
   "title": {
     "en": "Grid Discharge",
-    "nl": "Terugelvering"
+    "nl": "Teruglevering"
   },
   "units": {
     "en": "W",
