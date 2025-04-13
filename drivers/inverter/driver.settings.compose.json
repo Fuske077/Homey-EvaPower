@@ -2,15 +2,53 @@
   {
     "id": "sysSn",
     "type": "text",
-    "label": { "en": "sysSn" }, 
+    "label": {
+      "en": "System Serial Number",
+      "nl": "Systeem serienummer"
+    },
     "value": "ALB0020.....",
-    "hint": { "en": "The sysSn of your device" }
+    "hint": {
+      "en": "The sysSn of your device",
+      "nl": "Het serienummer van je apparaat (sysSn)"
+    }
   },
   {
     "id": "interval",
     "type": "number",
-    "label": { "en": "Interval" },
+    "label": {
+      "en": "Refresh Interval",
+      "nl": "Verversingsinterval"
+    },
     "value": 30,
-    "hint": { "en": "the refresh interval in seconds, minimum once every 10 seconds" }
+    "min": 10,
+    "step": 1,
+    "hint": {
+      "en": "The refresh interval in seconds (minimum 10)",
+      "nl": "Het verversingsinterval in seconden (minimaal 10)"
+    },
+    "units": {
+      "en": "s",
+      "nl": "s"
+    }
+  },
+  {
+    "id": "accuCapacity",
+    "type": "number",
+    "label": {
+      "en": "Battery Capacity",
+      "nl": "Accucapaciteit"
+    },
+    "hint": {
+      "en": "Set your battery's total capacity (1–6 kWh)",
+      "nl": "Stel de totale accucapaciteit in (1–6 kWh)"
+    },
+    "value": 2,
+    "min": 1,
+    "max": 6,
+    "step": 0.1,
+    "units": {
+      "en": "kWh",
+      "nl": "kWh"
+    }
   }
 ]
