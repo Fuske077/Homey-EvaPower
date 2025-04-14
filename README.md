@@ -1,34 +1,50 @@
-# EvaPower – AlphaESS Homey App (fork)
+# EvaPower
 
-EvaPower is een fork van de originele [AlphaESS Homey app](https://github.com/Aboreon/Homey-AlphaESS-inverter) en biedt integratie met AlphaESS omvormers in Homey, met verbeterde inzichten in dagelijks laden en ontladen.
+**Inzicht in je AlphaESS omvormer en accu via Homey**
+
+EvaPower is een fork van de originele AlphaESS Homey app, uitgebreid met:
+- Accu rendement (dagelijks + gemiddeld)
+- Tijd tot leeg/vol
+- Opgesplitste netverbruik sensoren (laden/ontladen)
+- Visuele iconen voor energiestromen
+- Instelbare accucapaciteit
+
+## 📦 Installatie (CLI via Homey Developer)
+Deze app is niet via de Homey App Store beschikbaar. Je kunt hem handmatig installeren via de Homey CLI:
+
+1. Zorg dat je Node.js en de Homey CLI hebt geïnstalleerd ([instructies](https://community.homey.app/t/how-to-cli-install-method/198))
+2. Clone deze repository:
+   ```bash
+   git clone https://github.com/Fuske077/Homey-EvaPower.git
+   cd Homey-EvaPower
+   ```
+3. Installeer de app op je Homey:
+   ```bash
+   homey app install
+   ```
+
+Of test live tijdens ontwikkeling:
+```bash
+homey app run --clean
+```
+
+## ⚙️ Instellingen
+Bij het toevoegen van het apparaat kun je:
+- Je systeemnummer (sysSn) invoeren
+- De accucapaciteit instellen (1–6 kWh)
+- Het verversingsinterval kiezen
+
+## 💡 Ondersteunde metingen
+- Batterijniveau (%)
+- PV vermogen (W)
+- Netverbruik via laden/ontladen (W)
+- Accu geladen/ontladen vandaag (kWh)
+- Tijd tot leeg/vol (u)
+- Accu rendement vandaag (%)
+- Gemiddeld rendement (%)
+
+## 📸 Afbeelding en iconen
+De app gebruikt eigen iconen in Homey-stijl (zwart/wit, clean).
 
 ---
-
-## 🔋 Wat doet deze app?
-
-- Haalt live data op van je AlphaESS systeem
-- Toont realtime:
-  - Batterijstatus
-  - Netverbruik
-  - PV-opbrengst
-  - Batterijvermogen
-- **Nieuw in EvaPower**:
-  - Dagelijkse **geladen energie** (`echarge`)
-  - Dagelijkse **ontladen energie** (`edischarge`)
-
----
-
-## 💡 Waarom EvaPower?
-
-Naast de bestaande realtime functies, voegt EvaPower inzicht toe in de energiestromen over de dag. Zo zie je of je meer laadt of ontlaadt en kun je daarop automatiseren in Homey.
-
----
-
-## 🧑‍💻 Credits
-
-Originele app ontwikkeld door [Aboreon (Tim Doorduyn)](https://github.com/Aboreon)
-
-Deze fork is gemaakt met respect voor het originele werk, en breidt dit uit met aanvullende functies voor dagelijks gebruik.
-
-
-
+© 2024 – Gebaseerd op de originele AlphaESS app door Tim Doorduyn. Deze versie is uitgebreid voor persoonlijk gebruik en open source beschikbaar.
