@@ -114,19 +114,20 @@
   "energy": {
     "batteries": ["OTHER"]
   },
-  "pair": [
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
+"pair": [
+  {
+    "id": "list_devices",
+    "template": "list_devices",
+    "navigation": {
+      "next": "add_devices"
     },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    }
-  ],
+    "image": "drivers/inverter/assets/images/large-eva.png"
+  },
+  {
+    "id": "add_devices",
+    "template": "add_devices"
+  }
+]
   "images": {
     "small": "drivers/inverter/assets/images/small-eva.png",
     "large": "drivers/inverter/assets/images/large-eva.png",
