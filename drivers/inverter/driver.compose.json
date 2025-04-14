@@ -127,7 +127,7 @@
     "id": "add_devices",
     "template": "add_devices"
   }
-]
+],
   "images": {
     "small": "drivers/inverter/assets/images/small-eva.png",
     "large": "drivers/inverter/assets/images/large-eva.png",
