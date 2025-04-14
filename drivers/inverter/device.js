@@ -14,8 +14,7 @@ class InverterDevice extends Homey.Device {
     this.appSecret = this.homey.settings.get('appSecret');
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`;
 
-    this.store = this.homey.storage;
-    this.startPolling();
+        this.startPolling();
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
@@ -31,6 +30,9 @@ class InverterDevice extends Homey.Device {
   }
 
   async fetchData() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
     if (!this.appId || !this.appSecret || !this.sysSn) {
       this.log('Missing configuration: appId, appSecret, or sysSn');
       return;
@@ -55,16 +57,23 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_battery', soc);
       await this.setCapabilityValue('measure_battery_level', soc);
 
-      // Positief: laden vanaf net | Negatief: terugleveren naar net
       const gridCharge = vermogenGrid > 0 ? vermogenGrid : 0;
       const gridDischarge = vermogenGrid < 0 ? Math.abs(vermogenGrid) : 0;
 
       await this.setCapabilityValue('measure_grid_charge', gridCharge);
       await this.setCapabilityValue('measure_grid_discharge', gridDischarge);
 
-      await this.fetchDailySummary(headers, soc);
+      // Dagelijkse rendementberekening om 23:59
+      if (hours === 23 && minutes === 59) {
+        await this.fetchDailySummary(headers, soc);
+      }
 
-      // === Tijd tot vol/leeg ===
+      // SoC-start van dag opslaan om 00:00
+      if (hours === 0 && minutes === 0) {
+        this.log('💾 SoC-start opgeslagen:', soc);
+        await this.setStoreValue('socStart', soc);
+      }
+
       const capaciteit = this.getSetting('accuCapacity') || 2;
       const minSoc = 10;
       const maxSoc = 100;
@@ -92,6 +101,7 @@ class InverterDevice extends Homey.Device {
 
   async fetchDailySummary(headers, currentSoc) {
     try {
+      this.log('📥 fetchDailySummary() gestart');
       const response = await axios.get('https://openapi.alphaess.com/api/getSumDataForCustomer', {
         headers,
         params: { sysSn: this.sysSn }
@@ -102,13 +112,23 @@ class InverterDevice extends Homey.Device {
         const geladen = summary.echarge;
         const ontladen = summary.edischarge;
 
-        await this.setCapabilityValue('measure_echarge', geladen);
-        await this.setCapabilityValue('measure_edischarge', ontladen);
+        this.log('⚡ echarge (geladen vandaag):', geladen);
+        this.log('⚡ edischarge (ontladen vandaag):', ontladen);
+
+        await this.setCapabilityValue('measure_echarge', geladen || 0);
+        await this.setCapabilityValue('measure_edischarge', ontladen || 0);
 
         const capaciteit = this.getSetting('accuCapacity') || 2;
-        const socStart = this.store.get('socStart') ?? currentSoc;
+        let socStart = await this.getStoreValue('socStart');
+        if (socStart === undefined || socStart === null) {
+          socStart = currentSoc;
+        }
         const socEind = currentSoc;
-        this.store.set('socStart', socEind);
+
+        this.log('🔋 SoC start:', socStart);
+        this.log('🔋 SoC eind:', socEind);
+
+        await this.setStoreValue('socStart', socEind);
 
         const brutoDelta = socEind - socStart;
         const deltaSocKWh = brutoDelta > 0 ? (brutoDelta / 100) * capaciteit * 0.9 : 0;
@@ -117,24 +137,23 @@ class InverterDevice extends Homey.Device {
           ? ((ontladen + deltaSocKWh) / geladen) * 100
           : 0;
 
-        await this.setCapabilityValue('measure_rendement_day', Math.round(dagrendement * 100) / 100);
+        const veiligDag = isNaN(dagrendement) ? 0 : Math.round(dagrendement * 100) / 100;
+        await this.setCapabilityValue('measure_rendement_day', veiligDag);
 
-        const totaalLading = this.store.get('lifetimeEcharge') || 0;
-        const totaalOntlading = this.store.get('lifetimeEdischarge') || 0;
+        const som = await this.getStoreValue('rendementTotaalSom') || 0;
+        const dagen = await this.getStoreValue('rendementAantalDagen') || 0;
 
-        const nieuweLading = totaalLading + geladen;
-        const nieuweOntlading = totaalOntlading + ontladen;
+        const nieuweSom = som + veiligDag;
+        const nieuweDagen = dagen + 1;
 
-        this.store.set('lifetimeEcharge', nieuweLading);
-        this.store.set('lifetimeEdischarge', nieuweOntlading);
+        const gemiddeld = nieuweDagen > 0 ? nieuweSom / nieuweDagen : 0;
 
-        const potentieelOntladen = capaciteit * (currentSoc / 100) * 0.9;
+        await this.setStoreValue('rendementTotaalSom', nieuweSom);
+        await this.setStoreValue('rendementAantalDagen', nieuweDagen);
 
-        const lifetimeRendement = nieuweLading > 0
-          ? ((nieuweOntlading + potentieelOntladen) / nieuweLading) * 100
-          : 0;
+        await this.setCapabilityValue('measure_rendement_total', Math.round(gemiddeld * 100) / 100);
 
-        await this.setCapabilityValue('measure_rendement_total', Math.round(lifetimeRendement * 100) / 100);
+        await this.setStoreValue('lastDailyCalc', today);
       }
     } catch (error) {
       this.error('Failed to fetch daily summary:', error.message);
