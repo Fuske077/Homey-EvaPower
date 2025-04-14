@@ -129,8 +129,8 @@
   }
 ],
   "images": {
-    "small": "drivers/inverter/assets/images/small-eva.png",
-    "large": "drivers/inverter/assets/images/large-eva.png",
-    "xlarge": "drivers/inverter/assets/images/xlarge-eva.png"
+    "small": "drivers/inverter/assets/images/small.png",
+    "large": "drivers/inverter/assets/images/large.png",
+    "xlarge": "drivers/inverter/assets/images/xlarge.png"
   }
 }
