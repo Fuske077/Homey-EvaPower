@@ -25,6 +25,12 @@ class InverterDevice extends Homey.Device {
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
+    if (changedKeys.includes('resetLifetime')) {
+      await this.setStoreValue('lifetimeEcharge', 0);
+      await this.setStoreValue('lifetimeEdischarge', 0);
+      await this.setCapabilityValue('measure_rendement_total', 0);
+      this.log('🧼 Lifetime counters manually reset via device settings');
+    }
     this.refreshInterval = newSettings.interval < 10 ? 10 : newSettings.interval;
     this.startPolling();
   }
