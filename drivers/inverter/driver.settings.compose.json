@@ -6,10 +6,9 @@
       "en": "System Serial Number",
       "nl": "Systeem serienummer"
     },
-    "value": "ALB0020.....",
     "hint": {
-      "en": "The sysSn of your device",
-      "nl": "Het serienummer van je apparaat (sysSn)"
+      "en": "Enter the system serial number (sysSn)",
+      "nl": "Vul het serienummer van je systeem in (sysSn)"
     }
   },
   {
@@ -20,15 +19,9 @@
       "nl": "Verversingsinterval"
     },
     "value": 30,
-    "min": 10,
-    "step": 1,
     "hint": {
-      "en": "The refresh interval in seconds (minimum 10)",
-      "nl": "Het verversingsinterval in seconden (minimaal 10)"
-    },
-    "units": {
-      "en": "s",
-      "nl": "s"
+      "en": "Data refresh interval in seconds (min. 10s)",
+      "nl": "Interval voor dataverversing in seconden (min. 10s)"
     }
   },
   {
@@ -50,5 +43,18 @@
       "en": "kWh",
       "nl": "kWh"
     }
+  },
+  {
+    "id": "resetLifetime",
+    "type": "button",
+    "label": {
+      "en": "Reset Lifetime Counters",
+      "nl": "Reset Lifetime-tellers"
+    },
+    "hint": {
+      "en": "This will reset the lifetime rendement history.",
+      "nl": "Hiermee worden de lifetime-rendementgegevens gewist."
+    },
+    "confirm": true
   }
 ]
