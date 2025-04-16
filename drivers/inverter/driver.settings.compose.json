@@ -44,17 +44,4 @@
       "nl": "kWh"
     }
   },
-  {
-    "id": "resetLifetime",
-    "type": "button",
-    "label": {
-      "en": "Reset Lifetime Counters",
-      "nl": "Reset Lifetime-tellers"
-    },
-    "hint": {
-      "en": "This will reset the lifetime rendement history.",
-      "nl": "Hiermee worden de lifetime-rendementgegevens gewist."
-    },
-    "confirm": true
-  }
 ]
