@@ -14,23 +14,10 @@ class InverterDevice extends Homey.Device {
     this.appSecret = this.homey.settings.get('appSecret');
     this.realtimeDataUrl = `https://openapi.alphaess.com/api/getLastPowerData?sysSn=${this.sysSn}`;
 
-    this.homey.flow.getActionCard('reset_lifetime_rendement').registerRunListener(async () => {
-      await this.setStoreValue('lifetimeEcharge', 0);
-      await this.setStoreValue('lifetimeEdischarge', 0);
-      await this.setCapabilityValue('measure_rendement_total', 0);
-      return true;
-    });
-
     this.startPolling();
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
-    if (changedKeys.includes('resetLifetime')) {
-      await this.setStoreValue('lifetimeEcharge', 0);
-      await this.setStoreValue('lifetimeEdischarge', 0);
-      await this.setCapabilityValue('measure_rendement_total', 0);
-      this.log('🧼 Lifetime counters manually reset via device settings');
-    }
     this.refreshInterval = newSettings.interval < 10 ? 10 : newSettings.interval;
     this.startPolling();
   }
@@ -127,16 +114,6 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_echarge', geladen);
       await this.setCapabilityValue('measure_edischarge', ontladen);
 
-      // Lifetime optellen
-      const lifetimeEcharge = (await this.getStoreValue('lifetimeEcharge')) || 0;
-      const lifetimeEdischarge = (await this.getStoreValue('lifetimeEdischarge')) || 0;
-
-      const nieuweEcharge = lifetimeEcharge + geladen;
-      const nieuweEdischarge = lifetimeEdischarge + ontladen;
-
-      await this.setStoreValue('lifetimeEcharge', nieuweEcharge);
-      await this.setStoreValue('lifetimeEdischarge', nieuweEdischarge);
-
       if (!isScheduled) return;
 
       const capaciteit = this.getSetting('accuCapacity') || 2;
@@ -148,11 +125,20 @@ class InverterDevice extends Homey.Device {
       this.log(`🔋 SoC eind: ${socEind}`);
 
       const deltaSocKWh = ((socEind - socStart) / 100) * capaciteit * 0.9;
-      const rendementDag = geladen > 0 ? ((ontladen + deltaSocKWh) / geladen) * 100 : 0;
+      const rendement = geladen > 0 ? ((ontladen + deltaSocKWh) / geladen) * 100 : 0;
+      const rendementRounded = Math.round(rendement * 100) / 100;
 
-      await this.setCapabilityValue('measure_rendement_day', Math.round(rendementDag * 100) / 100);
+      await this.setCapabilityValue('measure_rendement_day', rendementRounded);
 
-      // Lifetime rendement
+      const lifetimeEcharge = (await this.getStoreValue('lifetimeEcharge')) || 0;
+      const lifetimeEdischarge = (await this.getStoreValue('lifetimeEdischarge')) || 0;
+
+      const nieuweEcharge = lifetimeEcharge + geladen;
+      const nieuweEdischarge = lifetimeEdischarge + ontladen;
+
+      await this.setStoreValue('lifetimeEcharge', nieuweEcharge);
+      await this.setStoreValue('lifetimeEdischarge', nieuweEdischarge);
+
       const potentieelWh = capaciteit * 1000 * (socEind / 100) * 0.9;
       const lifetimeRendement = nieuweEcharge > 0 ? ((nieuweEdischarge * 1000 + potentieelWh) / (nieuweEcharge * 1000)) * 100 : 0;
 
