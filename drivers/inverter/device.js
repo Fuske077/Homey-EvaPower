@@ -64,6 +64,8 @@ class InverterDevice extends Homey.Device {
       await this.setCapabilityValue('measure_grid_charge', gridCharge);
       await this.setCapabilityValue('measure_grid_discharge', gridDischarge);
 
+      await this.fetchEMSStatus(headers); // 🆕 Nieuw toegevoegd
+
       await this.fetchDailySummary(headers, soc, hours === 23 && minutes === 59);
 
       if (hours === 0 && minutes === 0) {
@@ -93,6 +95,26 @@ class InverterDevice extends Homey.Device {
 
     } catch (error) {
       this.error('Failed to fetch data:', error);
+    }
+  }
+
+  async fetchEMSStatus(headers) {
+    try {
+      const response = await axios.get('https://openapi.alphaess.com/api/getEssList', {
+        headers
+      });
+
+      const listData = response.data.data;
+      if (!listData || !Array.isArray(listData) || listData.length === 0) return;
+
+      const matching = listData.find(item => item.sysSn === this.sysSn);
+      if (!matching || !matching.emsStatus) return;
+
+      await this.setCapabilityValue('status_ems', matching.emsStatus);
+      this.log('🔌 EMS Status:', matching.emsStatus);
+
+    } catch (error) {
+      this.error('Failed to fetch EMS status:', error.message);
     }
   }
 
